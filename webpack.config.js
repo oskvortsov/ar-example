@@ -16,7 +16,7 @@ module.exports = (env, argv) => ({
     path: path.resolve(__dirname, 'dist'),
     chunkFilename: 'chunks/[name].js',
     filename:
-      argv.mode === 'production' ? '[name].[chunkhash].js' : '[name].js'
+      argv.mode === 'production' ? '[name].js' : '[name].js'
   },
   module: {
     rules: [
@@ -75,13 +75,15 @@ module.exports = (env, argv) => ({
   },
   devServer: {
     contentBase: 'dist',
+    host: '0.0.0.0',
     watchContentBase: true,
     hot: true,
     open: true,
     port: 3000,
+    https: true,
+    cert: path.resolve(__dirname, 'cert', "private.pem"),
+    key: path.resolve(__dirname, 'cert', "private.key"),
     watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000,
       ignored: /node_modules/
     }
   },
